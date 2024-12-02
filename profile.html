@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hồ Sơ Cá Nhân</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f6f8;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background-color: #1877f2;
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      header h1 {
+        font-size: 24px;
+      }
+      .profile-header {
+        background-color: #3b5998;
+        height: 250px;
+        position: relative;
+        overflow: hidden;
+      }
+      .profile-header img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer;
+      }
+      .profile-container {
+        max-width: 900px;
+        margin: 20px auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .profile-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: -80px;
+        position: relative;
+      }
+      .profile-info img {
+        border-radius: 50%;
+        border: 4px solid white;
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+      .profile-info h2 {
+        margin: 10px 0;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+      }
+      .input-field {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+      }
+      .input-field:focus {
+        border-color: #1877f2;
+      }
+      .profile-info button {
+        background-color: #1877f2;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 20px;
+      }
+      .profile-info button:hover {
+        background-color: #165e9e;
+      }
+      .message {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #28a745;
+        color: white;
+        text-align: center;
+        border-radius: 5px;
+        display: none;
+      }
+      footer {
+        text-align: center;
+        padding: 15px;
+        background-color: #1877f2;
+        color: white;
+        margin-top: 20px;
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        font-size: 18px;
+        color: #1877f2;
+        text-decoration: none;
+      }
+      .back-link:hover {
+        text-decoration: underline;
+      }
+      .note {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f1f1f1;
+        border-left: 4px solid #1877f2;
+        font-size: 16px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Hồ Sơ Cá Nhân</h1>
+    </header>
+
+    <div
+      class="profile-header"
+      onclick="document.getElementById('coverPhotoInput').click()"
+    >
+      <img
+        src="https://via.placeholder.com/1500x500/3b5998/ffffff"
+        alt="Ảnh bìa"
+        id="coverPhoto"
+      />
+    </div>
+
+    <div class="profile-container">
+      <div class="profile-info">
+        <img
+          src="https://via.placeholder.com/120"
+          alt="Ảnh đại diện"
+          id="profilePic"
+          onclick="document.getElementById('profilePicInput').click()"
+        />
+        <h2 id="userName">Nguyễn Văn A</h2>
+
+        <!-- Các trường thông tin nhập vào -->
+        <input
+          type="text"
+          id="fullName"
+          class="input-field"
+          placeholder="Họ và tên"
+        />
+        <input
+          type="email"
+          id="email"
+          class="input-field"
+          placeholder="Email"
+        />
+        <input
+          type="tel"
+          id="phone"
+          class="input-field"
+          placeholder="Số điện thoại"
+        />
+
+        <button onclick="saveProfile()">Lưu thông tin</button>
+
+        <div class="message" id="message">Lưu thông tin thành công!</div>
+      </div>
+
+      <!-- Ghi chú -->
+      <div class="note">
+        <strong>Ghi chú:</strong> Bạn có thể thay đổi ảnh đại diện và ảnh bìa
+        của mình bằng cách nhấp vào hình ảnh và tải lên ảnh mới từ tệp. Hãy đảm
+        bảo điền đầy đủ các thông tin cá nhân và nhấn "Lưu thông tin" khi hoàn
+        thành.
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2024. Tất cả quyền được bảo lưu.</p>
+    </footer>
+
+    <input
+      type="file"
+      id="coverPhotoInput"
+      style="display: none"
+      accept="image/*"
+      onchange="previewCoverPhoto(event)"
+    />
+    <input
+      type="file"
+      id="profilePicInput"
+      style="display: none"
+      accept="image/*"
+      onchange="previewProfilePic(event)"
+    />
+
+    <script>
+      // Khi trang tải lại, kiểm tra nếu có thông tin đã lưu trong localStorage
+      window.onload = function () {
+        loadProfile();
+      };
+
+      function previewCoverPhoto(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function () {
+          document.getElementById("coverPhoto").src = reader.result;
+        };
+
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+      }
+
+      function previewProfilePic(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function () {
+          document.getElementById("profilePic").src = reader.result;
+        };
+
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+      }
+
+      function saveProfile() {
+        // Lưu ảnh đại diện và ảnh bìa
+        const profilePic = document.getElementById("profilePic").src;
+        const coverPhoto = document.getElementById("coverPhoto").src;
+
+        // Lưu thông tin người dùng
+        const fullName = document.getElementById("fullName").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+
+        // Lưu tất cả vào localStorage
+        localStorage.setItem("profilePic", profilePic);
+        localStorage.setItem("coverPhoto", coverPhoto);
+        localStorage.setItem("fullName", fullName);
+        localStorage.setItem("email", email);
+        localStorage.setItem("phone", phone);
+
+        // Cập nhật tên dưới ảnh đại diện
+        document.getElementById("userName").textContent =
+          fullName || "Nguyễn Văn A";
+
+        document.getElementById("message").style.display = "block";
+
+        setTimeout(function () {
+          document.getElementById("message").style.display = "none";
+        }, 3000);
+      }
+
+      function loadProfile() {
+        const profilePic = localStorage.getItem("profilePic");
+        const coverPhoto = localStorage.getItem("coverPhoto");
+        const fullName = localStorage.getItem("fullName");
+        const email = localStorage.getItem("email");
+        const phone = localStorage.getItem("phone");
+
+        if (profilePic) document.getElementById("profilePic").src = profilePic;
+        if (coverPhoto) document.getElementById("coverPhoto").src = coverPhoto;
+        if (fullName)
+          document.getElementById("userName").textContent = fullName;
+        if (email) document.getElementById("email").value = email;
+        if (phone) document.getElementById("phone").value = phone;
+      }
+    </script>
+  </body>
+</html>

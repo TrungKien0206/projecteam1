@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tải Video và Bình Luận</title>
+    <style>
+      /* Reset CSS */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1100px;
+        margin: 30px auto;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .header {
+        background-color: #5c6bc0;
+        color: white;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .header h1 {
+        font-size: 28px;
+      }
+
+      .video-upload {
+        padding: 20px;
+        text-align: center;
+      }
+
+      .video-upload input[type="file"] {
+        padding: 12px;
+        margin-top: 15px;
+        font-size: 16px;
+        border-radius: 6px;
+        border: none;
+        background-color: #28a745;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .video-upload input[type="file"]:hover {
+        background-color: #218838;
+      }
+
+      video {
+        display: block;
+        margin: 20px auto;
+        max-width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .comments-section {
+        padding: 20px;
+      }
+
+      .comments-section h2 {
+        margin-bottom: 20px;
+        font-size: 22px;
+      }
+
+      #commentInput {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      button {
+        padding: 12px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        background-color: #5c6bc0;
+        color: white;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      button:hover {
+        background-color: #3f51b5;
+        transform: scale(1.05);
+      }
+
+      .comment {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .comment:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .report-btn {
+        background-color: #dc3545;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .report-btn:hover {
+        background-color: #c82333;
+      }
+
+      .report-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+      }
+
+      .modal-content {
+        background-color: white;
+        padding: 30px;
+        border-radius: 12px;
+        width: 300px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .modal-content button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .modal-content button:hover {
+        background-color: #0056b3;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        color: #333;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .comment {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .report-btn {
+          margin-top: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Tải Video và Bình Luận</h1>
+      </div>
+      <div class="video-upload">
+        <h2>Chọn Video</h2>
+        <input
+          type="file"
+          id="videoInput"
+          accept="video/*"
+          onchange="handleVideoUpload()"
+        />
+        <video id="videoPlayer" controls></video>
+      </div>
+      <div class="comments-section">
+        <h2>Bình Luận</h2>
+        <textarea
+          id="commentInput"
+          placeholder="Nhập bình luận của bạn..."
+        ></textarea>
+        <button onclick="addComment()">Gửi Bình Luận</button>
+        <div id="commentsList"></div>
+      </div>
+    </div>
+
+    <!-- Modal Report -->
+    <div id="reportModal" class="report-modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeReportModal()">×</span>
+        <h3>Chọn Lý Do Báo Cáo</h3>
+        <button onclick="reportComment('Vi phạm chính sách')">
+          Vi phạm chính sách
+        </button>
+        <button onclick="reportComment('Nội dung phản cảm')">
+          Nội dung phản cảm
+        </button>
+        <button onclick="reportComment('Spam')">Spam</button>
+        <button onclick="reportComment('Khác')">Khác</button>
+      </div>
+    </div>
+
+    <script>
+      // Video Upload
+      function handleVideoUpload() {
+        const videoInput = document.getElementById("videoInput");
+        const videoPlayer = document.getElementById("videoPlayer");
+        const file = videoInput.files[0];
+        if (file) {
+          videoPlayer.src = URL.createObjectURL(file);
+        }
+      }
+
+      // Comments
+      let comments = [];
+      function addComment() {
+        const commentInput = document.getElementById("commentInput");
+        const commentText = commentInput.value.trim();
+        if (commentText) {
+          const comment = { id: comments.length + 1, text: commentText };
+          comments.push(comment);
+          displayComments();
+          commentInput.value = "";
+        }
+      }
+
+      function displayComments() {
+        const commentsList = document.getElementById("commentsList");
+        commentsList.innerHTML = "";
+        comments.forEach((comment) => {
+          const div = document.createElement("div");
+          div.className = "comment";
+          div.innerHTML = `
+          <span>${comment.text}</span>
+          <button class="report-btn" onclick="openReportModal(${comment.id})">Báo Cáo</button>
+        `;
+          commentsList.appendChild(div);
+        });
+      }
+
+      // Report Modal
+      function openReportModal(id) {
+        const modal = document.getElementById("reportModal");
+        modal.style.display = "flex";
+        modal.dataset.commentId = id;
+      }
+
+      function closeReportModal() {
+        document.getElementById("reportModal").style.display = "none";
+      }
+
+      function reportComment(reason) {
+        const id = document.getElementById("reportModal").dataset.commentId;
+        alert(`Báo cáo bình luận ${id} với lý do: ${reason}`);
+        closeReportModal();
+      }
+    </script>
+  </body>
+</html>

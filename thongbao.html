@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xem Thông Báo</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom right, #ffffff, #e6f7ff);
+      }
+
+      header {
+        background-color: #007bff;
+        color: white;
+        text-align: center;
+        padding: 20px 0;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 2.5em;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .notification {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #f9f9f9;
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s, background 0.2s;
+      }
+
+      .notification:hover {
+        transform: scale(1.03);
+        background: #f1faff;
+      }
+
+      .notification-icon {
+        font-size: 1.5em;
+        color: #007bff;
+        margin-right: 15px;
+      }
+
+      .notification-content {
+        flex: 1;
+        text-align: left;
+      }
+
+      .notification-content h3 {
+        margin: 0;
+        font-size: 1.2em;
+        color: #333333;
+      }
+
+      .notification-content p {
+        margin: 5px 0 0;
+        color: #666666;
+        font-size: 0.9em;
+      }
+
+      .notification-action {
+        font-size: 1em;
+        color: #007bff;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+
+      .notification-action:hover {
+        color: #0056b3;
+      }
+
+      .btn-refresh {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background-color: #28a745;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .btn-refresh:hover {
+        background-color: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Thông Báo</h1>
+    </header>
+    <div class="container">
+      <!-- Notifications Section -->
+      <div id="notifications">
+        <!-- Multiple Notifications -->
+        <div class="notification">
+          <div class="notification-icon">📢</div>
+          <div class="notification-content">
+            <h3>Thông Báo Quan Trọng</h3>
+            <p>Bạn có một lịch họp vào lúc 15:00 ngày hôm nay.</p>
+          </div>
+          <div class="notification-action" onclick="viewNotificationDetails()">
+            Xem
+          </div>
+        </div>
+        <div class="notification">
+          <div class="notification-icon">🔔</div>
+          <div class="notification-content">
+            <h3>Cập Nhật Hệ Thống</h3>
+            <p>Hệ thống sẽ được bảo trì vào cuối tuần này.</p>
+          </div>
+          <div class="notification-action" onclick="viewNotificationDetails()">
+            Xem
+          </div>
+        </div>
+        <div class="notification">
+          <div class="notification-icon">📅</div>
+          <div class="notification-content">
+            <h3>Hạn Chót Nộp Báo Cáo</h3>
+            <p>Báo cáo tháng cần được nộp trước ngày 15.</p>
+          </div>
+          <div class="notification-action" onclick="viewNotificationDetails()">
+            Xem
+          </div>
+        </div>
+        <div class="notification">
+          <div class="notification-icon">🎉</div>
+          <div class="notification-content">
+            <h3>Chúc Mừng Sinh Nhật</h3>
+            <p>Chúc mừng sinh nhật bạn Nguyễn Văn A!</p>
+          </div>
+          <div class="notification-action" onclick="viewNotificationDetails()">
+            Xem
+          </div>
+        </div>
+        <div class="notification">
+          <div class="notification-icon">📜</div>
+          <div class="notification-content">
+            <h3>Thay Đổi Chính Sách</h3>
+            <p>Chính sách làm việc từ xa đã được cập nhật.</p>
+          </div>
+          <div class="notification-action" onclick="viewNotificationDetails()">
+            Xem
+          </div>
+        </div>
+        <div class="notification">
+          <div class="notification-icon">⚠️</div>
+          <div class="notification-content">
+            <h3>Cảnh Báo Bảo Mật</h3>
+            <p>Hãy thay đổi mật khẩu của bạn để bảo vệ tài khoản.</p>
+          </div>
+          <div class="notification-action" onclick="viewNotificationDetails()">
+            Xem
+          </div>
+        </div>
+        <div class="notification">
+          <div class="notification-icon">📧</div>
+          <div class="notification-content">
+            <h3>Hộp Thư Đầy</h3>
+            <p>Bạn cần dọn dẹp hộp thư để nhận thêm email.</p>
+          </div>
+          <div class="notification-action" onclick="viewNotificationDetails()">
+            Xem
+          </div>
+        </div>
+        <div class="notification">
+          <div class="notification-icon">🚨</div>
+          <div class="notification-content">
+            <h3>Cảnh Báo Giao Thông</h3>
+            <p>Có sự cố giao thông gần khu vực của bạn.</p>
+          </div>
+          <div class="notification-action" onclick="viewNotificationDetails()">
+            Xem
+          </div>
+        </div>
+        <div class="notification">
+          <div class="notification-icon">💼</div>
+          <div class="notification-content">
+            <h3>Hội Thảo Trực Tuyến</h3>
+            <p>Bạn được mời tham gia hội thảo "Kỹ Năng Lãnh Đạo".</p>
+          </div>
+          <div class="notification-action" onclick="viewNotificationDetails()">
+            Xem
+          </div>
+        </div>
+        <div class="notification">
+          <div class="notification-icon">⚡</div>
+          <div class="notification-content">
+            <h3>Sự Cố Mất Điện</h3>
+            <p>Khu vực bạn đang ở sẽ cắt điện từ 9:00 - 12:00 ngày mai.</p>
+          </div>
+          <div class="notification-action" onclick="viewNotificationDetails()">
+            Xem
+          </div>
+        </div>
+        <div class="notification">
+          <div class="notification-icon">🛠️</div>
+          <div class="notification-content">
+            <h3>Sửa Chữa Cơ Sở Hạ Tầng</h3>
+            <p>Nhà xe sẽ được sửa chữa từ tuần tới.</p>
+          </div>
+          <div class="notification-action" onclick="viewNotificationDetails()">
+            Xem
+          </div>
+        </div>
+      </div>
+      <!-- Refresh Button -->
+      <button class="btn-refresh" onclick="refreshNotifications()">
+        Tải Lại Thông Báo
+      </button>
+    </div>
+
+    <script>
+      function viewNotificationDetails() {
+        alert("Thông tin chi tiết của thông báo sẽ được mở.");
+      }
+
+      function refreshNotifications() {
+        const notifications = document.getElementById("notifications");
+        notifications.innerHTML += `
+        <div class="notification">
+          <div class="notification-icon">📢</div>
+          <div class="notification-content">
+            <h3>Thông Báo Mới</h3>
+            <p>Đây là một thông báo mới được thêm vào hệ thống.</p>
+          </div>
+          <div class="notification-action" onclick="viewNotificationDetails()">Xem</div>
+        </div>
+      `;
+        alert("Thông báo đã được làm mới!");
+      }
+    </script>
+  </body>
+</html>

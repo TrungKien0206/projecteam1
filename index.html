@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang Chính Giảng Viên</title>
+    <style>
+      /* CSS Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+      }
+
+      /* Xóa gạch chân ở tất cả các thẻ <a> */
+      a {
+        text-decoration: none;
+      }
+
+      /* Header */
+      header {
+        background: linear-gradient(135deg, #007bff, #00c6ff);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+      }
+
+      header h1 {
+        font-size: 2.5em;
+      }
+
+      header p {
+        font-size: 1.2em;
+        margin-top: 10px;
+      }
+
+      /* Language Switcher & Facebook Button */
+      .header-right {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .lang-switch {
+        cursor: pointer;
+        background: white;
+        border: 2px solid #007bff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 1em;
+        font-weight: bold;
+        color: #007bff;
+        transition: all 0.3s ease;
+      }
+
+      .lang-switch:hover {
+        background: #007bff;
+        color: white;
+      }
+
+      .fb-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: transform 0.3s, background-color 0.3s;
+      }
+
+      .fb-button:hover {
+        transform: scale(1.1);
+        background: #007bff;
+      }
+
+      .fb-button img {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Search Bar & Menu */
+      .search-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        position: relative;
+      }
+
+      .menu-button {
+        font-size: 1em;
+        color: #007bff;
+        cursor: pointer;
+        background: none;
+        border: none;
+        outline: none;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+
+      .menu-button:hover {
+        background-color: #007bff;
+        color: white;
+        transform: scale(1.1);
+        box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.4);
+      }
+
+      .menu-list {
+        position: absolute;
+        top: 50px;
+        left: 20px;
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 10px 0;
+        display: none;
+        width: 200px;
+        z-index: 1000;
+      }
+
+      .menu-list li {
+        list-style: none;
+        padding: 10px 20px;
+        border-bottom: 1px solid #ddd;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .menu-list li:hover {
+        background-color: #f0f0f0;
+      }
+
+      .search-bar {
+        display: flex;
+        flex: 1;
+        max-width: 60%;
+        margin-left: 20px;
+      }
+
+      .search-bar input {
+        width: 100%;
+        padding: 10px 15px;
+        border: 2px solid #ccc;
+        border-radius: 30px 0 0 30px;
+        font-size: 1em;
+        outline: none;
+        transition: border-color 0.3s ease;
+      }
+
+      .search-bar input:focus {
+        border-color: #007bff;
+      }
+
+      .search-bar button {
+        background-color: #007bff;
+        border: none;
+        border-radius: 0 30px 30px 0;
+        padding: 10px 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease;
+      }
+
+      .search-bar button img {
+        width: 20px;
+        height: 20px;
+      }
+
+      .search-bar button:hover {
+        background-color: #0056b3;
+      }
+
+      /* Features Section */
+      .features {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .feature-item {
+        text-align: center;
+        width: 250px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: block;
+      }
+
+      .feature-item img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+      }
+
+      .feature-item h3 {
+        font-size: 1.5em;
+        color: #007bff;
+        margin-bottom: 10px;
+      }
+
+      .feature-item p {
+        font-size: 1em;
+        color: #555;
+      }
+
+      .feature-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 15px;
+        background-color: #007bff;
+        color: white;
+        margin-top: 20px;
+      }
+      /* Biểu tượng chat */
+      .chat-icon {
+        position: fixed;
+        top: 20px; /* Đặt cách trên 20px */
+        left: 20px; /* Đặt cách trái 20px */
+        background-color: #007bff;
+        border-radius: 50%;
+        padding: 15px;
+        cursor: pointer;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+      }
+
+      .chat-icon img {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Khung chat */
+      .chat-container {
+        display: none; /* Mặc định ẩn khung chat */
+        position: fixed;
+        top: 80px; /* Đặt khung chat cách trên 80px */
+        left: 20px; /* Đặt khung chat cách trái 20px */
+        width: 300px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        border: 1px solid #ccc;
+        transition: all 0.3s ease;
+      }
+
+      .chat-header {
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border-radius: 10px 10px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .chat-box {
+        background-color: #f1f1f1;
+        height: 250px;
+        padding: 10px;
+        overflow-y: auto;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .chat-input {
+        display: flex;
+        padding: 10px;
+        background-color: white;
+        border-radius: 0 0 10px 10px;
+      }
+
+      .chat-input input {
+        flex: 1;
+        padding: 10px;
+        border-radius: 30px 0 0 30px;
+        border: 2px solid #c6c2c2;
+      }
+
+      .chat-input button {
+        background-color: #0e78e9;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 0 30px 30px 0;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .chat-input button:hover {
+        background-color: #0056b3;
+      }
+
+      /* Nút đóng khung chat */
+      .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      /* Styles for the Chatbox */
+      .chatbox {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        max-width: 90%;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        display: none; /* Hidden by default */
+      }
+
+      .chatbox-header {
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .chatbox-body {
+        padding: 10px;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+
+      .chatbox-footer {
+        display: flex;
+        border-top: 1px solid #ddd;
+      }
+
+      .chatbox-footer input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        outline: none;
+      }
+
+      .chatbox-footer button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      .chatbox-footer button:hover {
+        background-color: #0056b3;
+      }
+
+      .chatbox-message {
+        margin-bottom: 10px;
+      }
+
+      .chatbox-message.user {
+        text-align: right;
+        color: blue;
+      }
+
+      .chatbox-message.bot {
+        text-align: left;
+        color: green;
+      }
+
+      /* Chatbox toggle button */
+      .chatbox-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+      }
+
+      .chatbox-toggle:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 id="header-title">Trang Chính Giảng Viên</h1>
+      <p id="header-description">
+        Chào mừng bạn đến với hệ thống quản lý giảng dạy
+      </p>
+      <!-- Biểu tượng Chat -->
+      <div id="chat-icon" class="chat-icon" onclick="toggleChat()">
+        <img
+          src="../image/messages (2).png"
+          alt="Chat"
+          width="40"
+          height="40"
+        />
+      </div>
+
+      <!-- Khung Chat -->
+      <div id="chat-container" class="chat-container">
+        <div class="chat-header">
+          <h3>Trò chuyện</h3>
+          <button class="close-btn" onclick="toggleChat()">X</button>
+        </div>
+        <div class="chat-box" id="chat-box">
+          <!-- Tin nhắn sẽ hiển thị ở đây -->
+        </div>
+        <div class="chat-input">
+          <input type="text" id="chat-input" placeholder="Nhập tin nhắn..." />
+          <button onclick="sendMessage()">Gửi</button>
+        </div>
+      </div>
+      <!-- Language Switcher and Facebook Button -->
+      <div class="header-right">
+        <button class="lang-switch" id="lang-switch">EN</button>
+        <a
+          href="https://www.facebook.com/koda.kien"
+          class="fb-button"
+          target="_blank"
+        >
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/733/733547.png"
+            alt="Facebook"
+          />
+        </a>
+      </div>
+    </header>
+
+    <div class="search-container">
+      <button class="menu-button" id="menu-button">
+        <span id="menu-button-text">Danh sách</span>
+      </button>
+      <ul class="menu-list" id="menu-list">
+        <li id="personal-profile-management">
+          <a href="profile.html">Hồ sơ cá nhân</a>
+        </li>
+        <li id="view-profile"><a href="xemhoso.html"> Xem hồ sơ</a></li>
+        <li id="view-notifications">
+          <a href="thongbao.html">Xem thông báo</a>
+        </li>
+        <li id="schedule"><a href="lichday.html">Lịch dạy</a></li>
+        <!-- Liên kết đến trang lichday.html -->
+        <li id="view-lesson-history">
+          <a href="lichsibaigiang.html">Lịch sử bài giảng</a>
+        </li>
+        <li id="references"><a href="tailieu.html">Tài liệu</a></li>
+        <li id="statistics"><a href="thongke.html">Thống kê</a></li>
+        <li id="student-confirmation">
+          <a href="xacnhanhs.html">Xác nhận học sinh</a>
+        </li>
+        <li id="test-and-grading">
+          <a href="kiemtra.html">Kiểm tra và chấm điểm</a>
+        </li>
+        <li id="materials"><a href="tailieu.html">Tài liệu</a></li>
+        <li id="manage-students"><a href="qlhv.html">Quản lý học viên</a></li>
+        <li id="electronic-contract">
+          <a href="hopdong.html">Hợp đồng điện tử</a>
+        </li>
+        <li id="settings"><a href="caidat.html">Cài đặt</a></li>
+      </ul>
+      <div class="search-bar">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Tìm kiếm chức năng..."
+        />
+        <button id="search-btn">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/622/622669.png"
+            alt="Search"
+          />
+        </button>
+      </div>
+    </div>
+
+    <section class="features" id="features-section">
+      <!-- Hồ sơ cá nhân -->
+      <div class="feature-item" data-name="Hồ sơ cá nhân">
+        <a href="profile.html">
+          <img src="../image/user.png" alt="Hồ sơ cá nhân" />
+          <h3 id="profile-title">Hồ sơ cá nhân</h3>
+          <p id="profile-desc">Quản lý thông tin cá nhân của bạn.</p>
+        </a>
+      </div>
+      <div class="feature-item" data-name="Xem hồ sơ">
+        <a href="xemhoso.html">
+          <img src="../image/time-past.png" alt="Xem hồ sơ" />
+          <h3 id="profile-title">Xem hồ sơ</h3>
+          <p id="profile-desc">Xem hồ sơ của bạn và những người khác.</p>
+        </a>
+      </div>
+      <div class="feature-item" data-name="Xem thông báo">
+        <a href="thongbao.html">
+          <img src="../image/search-alt.png" alt="Xem thông báo" />
+          <h3 id="profile-title">Xem thông báo</h3>
+          <p id="profile-desc">
+            Xem thông báo về những thông tin mới nhất dành cho bạn.
+          </p>
+        </a>
+      </div>
+      <div class="feature-item">
+        <a href="lichday.html">
+          <img src="../image/receipt.png" alt="Lịch dạy" />
+          <h3 id="schedule-title">Lịch dạy</h3>
+          <p id="schedule-desc">Xem và quản lý lịch dạy của bạn.</p>
+        </a>
+      </div>
+
+      <div class="feature-item">
+        <a href="lichsibaigiang.html">
+          <img src="../image/shield-check.png" alt="Lịch sử bài giảng" />
+          <h3 id="lesson-history-title">Lịch sử bài giảng</h3>
+          <p id="lesson-history-desc">Xem lịch sử các bài học đã giảng dạy.</p>
+        </a>
+      </div>
+
+      <!-- Thống kê -->
+      <div class="feature-item" data-name="Thống kê">
+        <a href="thongke.html">
+          <img src="../image/layout-fluid.png" alt="Thống kê" />
+          <h3 id="stats-title">Thống kê</h3>
+          <p id="stats-desc">Xem các thống kê về quá trình giảng dạy.</p>
+        </a>
+      </div>
+
+      <!-- Tài liệu -->
+      <div class="feature-item" data-name="Tài liệu">
+        <a href="tailieu.html">
+          <img src="../image/search-alt.png" alt="Tài liệu" />
+          <h3 id="materials-title">Tài liệu</h3>
+          <p id="materials-desc">Quản lý tài liệu giảng dạy của bạn.</p>
+        </a>
+      </div>
+
+      <!-- Quản lý học viên -->
+      <div class="feature-item" data-name="Quản lý học viên">
+        <a href="qlhv.html">
+          <img src="../image/lead-management.png" alt="Quản lý học viên" />
+          <h3 id="students-title">Quản lý học viên</h3>
+          <p id="students-desc">Quản lý thông tin và lịch học của học viên.</p>
+        </a>
+      </div>
+
+      <div class="feature-item" data-name="Xác nhận học sinh">
+        <a href="xacnhanhs.html">
+          <img src="../image/layout-fluid.png" alt="Xác nhận học sinh" />
+          <h3 id="profile-title">Xác nhận học sinh</h3>
+          <p id="profile-desc">Xem và xác nhận học sinh của bạn.</p>
+        </a>
+      </div>
+
+      <div class="feature-item" data-name="Kiểm tra và chấm điểm">
+        <a href="kiemtra.html">
+          <img src="../image/web-test.png" alt="Kiểm tra và chấm điểm" />
+          <h3 id="profile-title">Kiểm tra và chấm điểm</h3>
+          <p id="profile-desc">Kiểm tra và chấm điểm học sinh của bạn.</p>
+        </a>
+      </div>
+
+      <div class="feature-item" data-name="Hợp đồng điện tử">
+        <a href="hopdong.html">
+          <img src="../image/receipt.png" alt="Hợp đồng điện tử" />
+          <h3 id="profile-title">Hợp đồng điện tử</h3>
+          <p id="profile-desc">Truy cập hợp đồng điện tử của bạn.</p>
+        </a>
+      </div>
+
+      <!-- Cài đặt -->
+      <div class="feature-item" data-name="Cài đặt">
+        <a href="caidat.html">
+          <img src="../image/settings.png" alt="Cài đặt" />
+          <h3 id="settings-title">Cài đặt</h3>
+          <p id="settings-desc">Cài đặt thông tin tài khoản và hệ thống.</p>
+        </a>
+      </div>
+      <!-- Chatbox -->
+      <div class="chatbox" id="chatbox">
+        <div class="chatbox-header" onclick="toggleChatbox()">
+          Chat với chúng tôi
+        </div>
+        <div class="chatbox-body" id="chatbox-body">
+          <!-- Chat messages -->
+        </div>
+        <div class="chatbox-footer">
+          <input
+            type="text"
+            id="chatbox-input"
+            placeholder="Nhập tin nhắn..."
+          />
+          <button onclick="sendMessage()">Gửi</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2024. Tất cả quyền được bảo lưu.</p>
+    </footer>
+    <!-- Chatbox Toggle Button -->
+    <button class="chatbox-toggle" onclick="toggleChatbox()">💬</button>
+
+    <script>
+      // Toggle Chatbox visibility
+      function toggleChatbox() {
+        const chatbox = document.getElementById("chatbox");
+        if (chatbox.style.display === "none" || chatbox.style.display === "") {
+          chatbox.style.display = "block";
+        } else {
+          chatbox.style.display = "none";
+        }
+      }
+
+      // Send message
+      function sendMessage() {
+        const input = document.getElementById("chatbox-input");
+        const message = input.value.trim();
+        const chatBody = document.getElementById("chatbox-body");
+
+        if (message) {
+          // Append user message
+          const userMessage = document.createElement("div");
+          userMessage.classList.add("chatbox-message", "user");
+          userMessage.textContent = message;
+          chatBody.appendChild(userMessage);
+
+          // Simulate bot response
+          const botMessage = document.createElement("div");
+          botMessage.classList.add("chatbox-message", "bot");
+          botMessage.textContent = "Bot: Cảm ơn bạn đã nhắn tin!";
+          chatBody.appendChild(botMessage);
+
+          // Scroll to the latest message
+          chatBody.scrollTop = chatBody.scrollHeight;
+
+          // Clear input field
+          input.value = "";
+        }
+      }
+    </script>
+    <script>
+      // Toggle the menu visibility
+      document.getElementById("menu-button").addEventListener("click", () => {
+        const menuList = document.getElementById("menu-list");
+        menuList.style.display =
+          menuList.style.display === "block" ? "none" : "block";
+      });
+
+      // Close the menu if clicking outside
+      document.addEventListener("click", function (event) {
+        const menuList = document.getElementById("menu-list");
+        const menuButton = document.getElementById("menu-button");
+        if (
+          !menuList.contains(event.target) &&
+          !menuButton.contains(event.target)
+        ) {
+          menuList.style.display = "none";
+        }
+      });
+
+      // Language switcher
+      const langSwitch = document.getElementById("lang-switch");
+      langSwitch.addEventListener("click", function () {
+        const isVietnamese = document.documentElement.lang === "vi";
+        if (isVietnamese) {
+          document.documentElement.lang = "en";
+          langSwitch.textContent = "VI";
+          document.getElementById("header-title").textContent =
+            "Main Page for Teacher";
+          document.getElementById("header-description").textContent =
+            "Welcome to the teaching management system";
+          document.getElementById("profile-title").textContent = "Profile";
+          document.getElementById("schedule-title").textContent = "Schedule";
+          document.getElementById("stats-title").textContent = "Statistics";
+          document.getElementById("materials-title").textContent = "Materials";
+          document.getElementById("students-title").textContent =
+            "Manage Students";
+          document.getElementById("lesson-history-title").textContent =
+            "Lesson History";
+          document.getElementById("lesson-history-desc").textContent =
+            "View history of lessons taught";
+
+          document.getElementById("settings-title").textContent = "Settings";
+          document.getElementById("profile-desc").textContent =
+            "Manage your personal information.";
+          document.getElementById("schedule-desc").textContent =
+            "View and manage your schedule.";
+          document.getElementById("stats-desc").textContent =
+            "View teaching statistics.";
+          document.getElementById("materials-desc").textContent =
+            "Manage your teaching materials.";
+          document.getElementById("students-desc").textContent =
+            "Manage student information and schedules.";
+          document.getElementById("settings-desc").textContent =
+            "Configure account and system settings.";
+          document.getElementById("search-input").placeholder =
+            "Search features...";
+          document.getElementById("menu-button-text").textContent = "Menu";
+        } else {
+          document.documentElement.lang = "vi";
+          langSwitch.textContent = "EN";
+          document.getElementById("header-title").textContent =
+            "Trang Chính Giảng Viên";
+          document.getElementById("header-description").textContent =
+            "Chào mừng bạn đến với hệ thống quản lý giảng dạy";
+          document.getElementById("profile-title").textContent =
+            "Hồ sơ cá nhân";
+          document.getElementById("schedule-title").textContent = "Lịch học";
+          document.getElementById("stats-title").textContent = "Thống kê";
+          document.getElementById("materials-title").textContent = "Tài liệu";
+          document.getElementById("students-title").textContent =
+            "Quản lý học viên";
+          document.getElementById("lesson-history-title").textContent =
+            "Lịch sử bài học";
+          document.getElementById("lesson-history-desc").textContent =
+            "Xem lịch sử các bài học đã giảng dạy";
+
+          document.getElementById("settings-title").textContent = "Cài đặt";
+          document.getElementById("profile-desc").textContent =
+            "Quản lý thông tin cá nhân của bạn.";
+          document.getElementById("schedule-desc").textContent =
+            "Xem và quản lý lịch học của bạn.";
+          document.getElementById("stats-desc").textContent =
+            "Xem các thống kê về quá trình giảng dạy.";
+          document.getElementById("materials-desc").textContent =
+            "Quản lý tài liệu giảng dạy của bạn.";
+          document.getElementById("students-desc").textContent =
+            "Quản lý thông tin và lịch học của học viên.";
+          document.getElementById("settings-desc").textContent =
+            "Cài đặt thông tin tài khoản và hệ thống.";
+          document.getElementById("search-input").placeholder =
+            "Tìm kiếm chức năng...";
+
+          document.getElementById("menu-button-text").textContent = "Danh sách";
+        }
+      });
+
+      // Liên kết "Hồ sơ cá nhân" trong menu
+      document.getElementById("profile").addEventListener("click", function () {
+        window.location.href = "profile.html";
+      });
+
+      // Liên kết "Hồ sơ cá nhân" trong danh sách tính năng
+      document
+        .querySelector(".feature-item[data-name='Hồ sơ cá nhân']")
+        .addEventListener("click", function () {
+          window.location.href = "profile.html";
+        });
+
+      // Tìm kiếm
+      document
+        .getElementById("search-input")
+        .addEventListener("input", function () {
+          const query = this.value.toLowerCase();
+          const items = document.querySelectorAll(".feature-item");
+
+          items.forEach((item) => {
+            const title = item.querySelector("h3").textContent.toLowerCase();
+            const description = item
+              .querySelector("p")
+              .textContent.toLowerCase();
+            item.style.display =
+              title.includes(query) || description.includes(query)
+                ? "block"
+                : "none";
+          });
+        });
+
+      // Tạo hàm để mở hoặc đóng khung chat
+      function toggleChat() {
+        const chatContainer = document.getElementById("chat-container");
+        chatContainer.style.display =
+          chatContainer.style.display === "none" ||
+          chatContainer.style.display === ""
+            ? "block"
+            : "none";
+      }
+
+      // Gửi tin nhắn
+      function sendMessage() {
+        const chatBox = document.getElementById("chat-box");
+        const chatInput = document.getElementById("chat-input");
+        const message = chatInput.value.trim();
+
+        if (message) {
+          const newMessage = document.createElement("div");
+          newMessage.classList.add("chat-message");
+          newMessage.textContent = `Giảng viên: ${message}`;
+          chatBox.appendChild(newMessage);
+          chatInput.value = ""; // Xóa nội dung ô nhập
+
+          // Cuộn xuống tin nhắn mới
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }
+      }
+    </script>
+  </body>
+</html>

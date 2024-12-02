@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cài Đặt</title>
+    <style>
+      :root {
+        --bg-color: #f4f4f4;
+        --text-color: #333;
+        --header-color: #007bff;
+        --card-color: #ffffff;
+        --gradient-color: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        --input-bg: #ffffff;
+      }
+
+      [data-theme="dark"] {
+        --bg-color: #181818;
+        --text-color: #e0e0e0;
+        --header-color: #444444;
+        --card-color: #252525;
+        --gradient-color: linear-gradient(135deg, #434343 0%, #000000 100%);
+        --input-bg: #2a2a2a;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: var(--bg-color);
+        color: var(--text-color);
+        transition: background-color 0.5s, color 0.5s;
+      }
+
+      header {
+        background: var(--gradient-color);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        background: var(--card-color);
+        border-radius: 15px;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.5s;
+      }
+
+      .section {
+        margin-bottom: 30px;
+      }
+
+      .section h2 {
+        font-size: 1.5em;
+        color: var(--header-color);
+        border-left: 5px solid var(--header-color);
+        padding-left: 10px;
+        margin-bottom: 15px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: var(--text-color);
+      }
+
+      .form-group input,
+      .form-group select {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1em;
+        background: var(--input-bg);
+        color: var(--text-color);
+        transition: border-color 0.3s, background-color 0.3s;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: var(--header-color);
+        outline: none;
+      }
+
+      .form-actions {
+        text-align: right;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+      }
+
+      .btn-primary {
+        background-color: var(--header-color);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+      }
+
+      .btn-danger {
+        background-color: #dc3545;
+        color: white;
+      }
+
+      .btn-danger:hover {
+        background-color: #c82333;
+      }
+
+      .toggle-switch {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .toggle-switch input {
+        display: none;
+      }
+
+      .toggle-switch label {
+        display: block;
+        width: 50px;
+        height: 25px;
+        background: #ddd;
+        border-radius: 15px;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .toggle-switch label::after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 20px;
+        height: 20px;
+        background: white;
+        border-radius: 50%;
+        transition: transform 0.3s;
+      }
+
+      .toggle-switch input:checked + label {
+        background: var(--header-color);
+      }
+
+      .toggle-switch input:checked + label::after {
+        transform: translateX(25px);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 id="title">Cài Đặt</h1>
+    </header>
+    <div class="container">
+      <!-- Account Settings -->
+      <div class="section">
+        <h2 id="account-settings-title">Cài Đặt Tài Khoản</h2>
+        <div class="form-group">
+          <label id="username-label" for="username">Tên Người Dùng</label>
+          <input type="text" id="username" placeholder="Nhập tên người dùng" />
+        </div>
+        <div class="form-group">
+          <label id="password-label" for="password">Mật Khẩu</label>
+          <input type="password" id="password" placeholder="Nhập mật khẩu" />
+        </div>
+        <div class="form-actions">
+          <button
+            class="btn btn-primary"
+            id="save-btn"
+            onclick="saveAccountSettings()"
+          >
+            Lưu Thay Đổi
+          </button>
+          <button
+            class="btn btn-danger"
+            id="delete-btn"
+            onclick="deleteAccount()"
+          >
+            Xóa Tài Khoản
+          </button>
+        </div>
+      </div>
+      <!-- System Settings -->
+      <div class="section">
+        <h2 id="system-settings-title">Cài Đặt Hệ Thống</h2>
+        <div class="form-group">
+          <label id="language-label" for="language">Ngôn Ngữ</label>
+          <select id="language" onchange="setLanguage()">
+            <option value="vi">Tiếng Việt</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label id="theme-label" for="theme">Chế Độ Giao Diện</label>
+          <div class="toggle-switch">
+            <input type="checkbox" id="theme-toggle" onchange="toggleTheme()" />
+            <label for="theme-toggle"></label>
+            <span id="theme-status">Sáng</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const translations = {
+        en: {
+          title: "Settings",
+          "account-settings-title": "Account Settings",
+          "system-settings-title": "System Settings",
+          "username-label": "Username",
+          "password-label": "Password",
+          "save-btn": "Save Changes",
+          "delete-btn": "Delete Account",
+          "language-label": "Language",
+          "theme-label": "Theme Mode",
+          "theme-status-light": "Light",
+          "theme-status-dark": "Dark",
+        },
+        vi: {
+          title: "Cài Đặt",
+          "account-settings-title": "Cài Đặt Tài Khoản",
+          "system-settings-title": "Cài Đặt Hệ Thống",
+          "username-label": "Tên Người Dùng",
+          "password-label": "Mật Khẩu",
+          "save-btn": "Lưu Thay Đổi",
+          "delete-btn": "Xóa Tài Khoản",
+          "language-label": "Ngôn Ngữ",
+          "theme-label": "Chế Độ Giao Diện",
+          "theme-status-light": "Sáng",
+          "theme-status-dark": "Tối",
+        },
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const theme = localStorage.getItem("theme") || "light";
+        const language = localStorage.getItem("language") || "vi";
+
+        applyTheme(theme);
+        applyLanguage(language);
+
+        document.getElementById("language").value = language;
+        document.getElementById("theme-toggle").checked = theme === "dark";
+      });
+
+      function saveAccountSettings() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
+
+        alert("Thông tin đã được lưu!");
+      }
+
+      function deleteAccount() {
+        if (confirm("Bạn có chắc muốn xóa tài khoản?")) {
+          localStorage.removeItem("username");
+          localStorage.removeItem("password");
+          alert("Tài khoản đã bị xóa.");
+        }
+      }
+
+      function toggleTheme() {
+        const theme = document.getElementById("theme-toggle").checked
+          ? "dark"
+          : "light";
+        localStorage.setItem("theme", theme);
+        applyTheme(theme);
+      }
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        document.getElementById("theme-status").textContent =
+          translations[localStorage.getItem("language") || "vi"][
+            theme === "dark" ? "theme-status-dark" : "theme-status-light"
+          ];
+      }
+
+      function setLanguage() {
+        const language = document.getElementById("language").value;
+        localStorage.setItem("language", language);
+        applyLanguage(language);
+      }
+
+      function applyLanguage(language) {
+        const elements = document.querySelectorAll("[id]");
+        elements.forEach((element) => {
+          if (translations[language][element.id]) {
+            element.textContent = translations[language][element.id];
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

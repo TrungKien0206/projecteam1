@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lịch Dạy</title>
+    <style>
+      /* CSS Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+      }
+
+      /* Header */
+      header {
+        background: linear-gradient(135deg, #007bff, #00c6ff);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      header h1 {
+        font-size: 2.5em;
+      }
+
+      header p {
+        font-size: 1.2em;
+        margin-top: 10px;
+      }
+
+      /* Lịch dạy Section */
+      .schedule {
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .class-item {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        width: 200px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .class-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .class-item h3 {
+        color: #007bff;
+        font-size: 1.5em;
+        margin-bottom: 10px;
+      }
+
+      .class-item p {
+        color: #555;
+        font-size: 1em;
+      }
+
+      /* Class Details Section */
+      .class-details {
+        display: none;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .class-details h2 {
+        color: #007bff;
+        margin-bottom: 20px;
+      }
+
+      .class-details p {
+        margin-bottom: 20px;
+      }
+
+      .start-btn {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1.1em;
+        transition: background-color 0.3s ease;
+      }
+
+      .start-btn:hover {
+        background-color: #0056b3;
+      }
+
+      /* Add/Edit Class Form */
+      .form-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+      }
+
+      .form-container input,
+      .form-container textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 1em;
+      }
+
+      .form-container button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1.1em;
+      }
+
+      .form-container button:hover {
+        background-color: #0056b3;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 15px;
+        background-color: #007bff;
+        color: white;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Lịch Dạy</h1>
+      <p>Chọn lớp để xem chi tiết và bắt đầu học</p>
+    </header>
+
+    <div class="schedule" id="schedule">
+      <!-- Các lớp học -->
+      <div class="class-item" data-class="class1">
+        <h3>Lớp 1</h3>
+        <p>Chủ đề: JavaScript cơ bản</p>
+      </div>
+      <div class="class-item" data-class="class2">
+        <h3>Lớp 2</h3>
+        <p>Chủ đề: HTML & CSS</p>
+      </div>
+      <div class="class-item" data-class="class3">
+        <h3>Lớp 3</h3>
+        <p>Chủ đề: React.js</p>
+      </div>
+    </div>
+
+    <div class="class-details" id="class-details">
+      <h2 id="class-title"></h2>
+      <p id="class-description"></p>
+      <button class="start-btn" id="start-btn">Bắt đầu dạy</button>
+    </div>
+
+    <!-- Form to Add/Edit Classes -->
+    <div class="form-container" id="class-form">
+      <h2>Thêm/Sửa lớp học</h2>
+      <input type="text" id="class-name" placeholder="Tên lớp" />
+      <textarea
+        id="class-description-field"
+        placeholder="Mô tả lớp học"
+      ></textarea>
+      <button id="save-class-btn">Lưu lớp học</button>
+    </div>
+
+    <footer>
+      <p>&copy; 2024. Tất cả quyền được bảo lưu.</p>
+    </footer>
+
+    <script>
+      // Dữ liệu lớp học
+      const classData = {
+        class1: {
+          title: "Lớp 1: JavaScript cơ bản",
+          description:
+            "Trong lớp học này, chúng ta sẽ học về các khái niệm cơ bản của JavaScript như biến, kiểu dữ liệu, hàm, v.v.",
+          meetLink: "https://meet.google.com/example1",
+        },
+        class2: {
+          title: "Lớp 2: HTML & CSS",
+          description:
+            "Lớp học này giúp bạn hiểu cách xây dựng một trang web cơ bản bằng HTML và CSS.",
+          meetLink: "https://meet.google.com/example2",
+        },
+        class3: {
+          title: "Lớp 3: React.js",
+          description:
+            "Trong lớp học này, chúng ta sẽ học về React.js, một thư viện JavaScript phổ biến để xây dựng ứng dụng web.",
+          meetLink: "https://meet.google.com/example3",
+        },
+      };
+
+      // Hiển thị chi tiết lớp học
+      const classItems = document.querySelectorAll(".class-item");
+      const classDetails = document.getElementById("class-details");
+      const classTitle = document.getElementById("class-title");
+      const classDescription = document.getElementById("class-description");
+      const startBtn = document.getElementById("start-btn");
+
+      classItems.forEach((item) => {
+        item.addEventListener("click", function () {
+          const classId = item.getAttribute("data-class");
+          const classInfo = classData[classId];
+
+          // Cập nhật thông tin chi tiết lớp học
+          classTitle.textContent = classInfo.title;
+          classDescription.textContent = classInfo.description;
+
+          // Hiển thị chi tiết lớp học
+          classDetails.style.display = "block";
+
+          // Cập nhật nút "Bắt đầu học" với link Google Meet
+          startBtn.onclick = function () {
+            window.open(classInfo.meetLink, "_blank");
+          };
+        });
+      });
+
+      // Lưu lớp học mới hoặc chỉnh sửa
+      const saveClassBtn = document.getElementById("save-class-btn");
+      saveClassBtn.addEventListener("click", function () {
+        const className = document.getElementById("class-name").value;
+        const classDescriptionField = document.getElementById(
+          "class-description-field"
+        ).value;
+
+        // Kiểm tra nếu có đủ thông tin
+        if (className && classDescriptionField) {
+          const newClassId = "class" + (Object.keys(classData).length + 1);
+          classData[newClassId] = {
+            title: className,
+            description: classDescriptionField,
+            meetLink: "https://meet.google.com/" + newClassId, // Tạo link Meet tự động
+          };
+
+          // Tạo phần tử mới cho lớp học
+          const newClassItem = document.createElement("div");
+          newClassItem.classList.add("class-item");
+          newClassItem.setAttribute("data-class", newClassId);
+          newClassItem.innerHTML = `<h3>${className}</h3><p>Chủ đề: ${classDescriptionField}</p>`;
+          document.getElementById("schedule").appendChild(newClassItem);
+
+          // Reset form
+          document.getElementById("class-name").value = "";
+          document.getElementById("class-description-field").value = "";
+
+          // Gán lại sự kiện click cho lớp mới
+          newClassItem.addEventListener("click", function () {
+            const classInfo = classData[newClassId];
+
+            // Cập nhật thông tin chi tiết lớp học
+            classTitle.textContent = classInfo.title;
+            classDescription.textContent = classInfo.description;
+
+            // Hiển thị chi tiết lớp học
+            classDetails.style.display = "block";
+
+            // Cập nhật nút "Bắt đầu học" với link Google Meet
+            startBtn.onclick = function () {
+              window.open(classInfo.meetLink, "_blank");
+            };
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

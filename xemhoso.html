@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh Sách Hồ Sơ Học Sinh</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #007bff;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+      }
+
+      .student-card {
+        background-color: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .student-card img {
+        width: 150px; /* Kích thước ảnh lớn hơn */
+        height: 150px; /* Tương tự chiều rộng */
+        border-radius: 50%; /* Tạo hình tròn */
+        object-fit: cover; /* Đảm bảo không méo hình */
+        margin-bottom: 10px;
+        transition: transform 0.3s ease;
+      }
+
+      .student-card h3 {
+        margin: 10px 0;
+        font-size: 1.2em;
+        color: #333;
+      }
+
+      .student-card p {
+        margin: 5px 0;
+        color: #555;
+      }
+
+      .student-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .student-card:hover img {
+        transform: scale(1.1);
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 0.9em;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Danh Sách Hồ Sơ Học Sinh</h1>
+    </header>
+
+    <div class="container">
+      <div class="student-card">
+        <img src="../image/kienle.jpg" alt="Học Sinh 1" />
+        <h3>Nguyễn Văn A</h3>
+        <p>Tuổi: 15</p>
+        <p>Nơi ở: Hà Nội</p>
+      </div>
+
+      <div class="student-card">
+        <img src="./image/boy.jpg" alt="Học Sinh 2" />
+        <h3>Trần Thị B</h3>
+        <p>Tuổi: 14</p>
+        <p>Nơi ở: TP. Hồ Chí Minh</p>
+      </div>
+
+      <div class="student-card">
+        <img src="./image/kinh.jpg" alt="Học Sinh 3" />
+        <h3>Lê Văn C</h3>
+        <p>Tuổi: 16</p>
+        <p>Nơi ở: Đà Nẵng</p>
+      </div>
+
+      <div class="student-card">
+        <img src="./image/vang.jpg" alt="Học Sinh 4" />
+        <h3>Phạm Thị D</h3>
+        <p>Tuổi: 17</p>
+        <p>Nơi ở: Hải Phòng</p>
+      </div>
+
+      <div class="student-card">
+        <img src="./image/sgroup.jpg" alt="Học Sinh 5" />
+        <h3>Nguyễn Thị E</h3>
+        <p>Tuổi: 15</p>
+        <p>Nơi ở: Cần Thơ</p>
+      </div>
+
+      <div class="student-card">
+        <img src="./image/security.jpg" alt="Học Sinh 6" />
+        <h3>Trần Quang F</h3>
+        <p>Tuổi: 14</p>
+        <p>Nơi ở: Bình Dương</p>
+      </div>
+
+      <div class="student-card">
+        <img src="./image/kinh.jpg" alt="Học Sinh 7" />
+        <h3>Lê Hoàng G</h3>
+        <p>Tuổi: 16</p>
+        <p>Nơi ở: Vũng Tàu</p>
+      </div>
+
+      <div class="student-card">
+        <img src="./image/hehe.jpg" alt="Học Sinh 8" />
+        <h3>Phạm Minh H</h3>
+        <p>Tuổi: 17</p>
+        <p>Nơi ở: Quảng Ninh</p>
+      </div>
+
+      <div class="student-card">
+        <img src="./image/chill.jpg" alt="Học Sinh 9" />
+        <h3>Nguyễn Hoài I</h3>
+        <p>Tuổi: 15</p>
+        <p>Nơi ở: Nghệ An</p>
+      </div>
+
+      <div class="student-card">
+        <img src="./image/bui.jpg" alt="Học Sinh 10" />
+        <h3>Trần Bình J</h3>
+        <p>Tuổi: 14</p>
+        <p>Nơi ở: Kiên Giang</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>© 2024 Danh Sách Hồ Sơ Học Sinh</p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản Lý Tài Liệu Dạy Học</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+      }
+
+      header {
+        background: linear-gradient(135deg, #007bff, #00c6ff);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      header h1 {
+        font-size: 2.5em;
+      }
+
+      header p {
+        font-size: 1.2em;
+        margin-top: 10px;
+      }
+
+      .file-list {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .file-item {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .file-item h3 {
+        font-size: 1.5em;
+        color: #007bff;
+      }
+
+      .file-item p {
+        font-size: 1em;
+        color: #555;
+        flex: 1;
+        margin: 0 10px;
+      }
+
+      .file-item button {
+        background-color: #007bff;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .file-item button:hover {
+        background-color: #0056b3;
+      }
+
+      .form-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .form-container input,
+      .form-container textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 1em;
+      }
+
+      .form-container button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .form-container button:hover {
+        background-color: #0056b3;
+      }
+
+      footer {
+        text-align: center;
+        padding: 15px;
+        background-color: #007bff;
+        color: white;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Quản Lý Tài Liệu Dạy Học</h1>
+      <p>Thêm, chỉnh sửa hoặc xóa tài liệu dạy học</p>
+    </header>
+
+    <div class="file-list" id="fileList"></div>
+
+    <!-- Form to add/edit notes -->
+    <div class="form-container" id="formContainer">
+      <input type="text" id="fileName" placeholder="Tên tài liệu" />
+      <textarea
+        id="noteInput"
+        placeholder="Nhập ghi chú..."
+        rows="5"
+      ></textarea>
+      <input type="file" id="fileInput" />
+      <button id="saveBtn">Lưu tài liệu</button>
+    </div>
+
+    <footer>
+      <p>&copy; 2024. Tất cả quyền được bảo lưu.</p>
+    </footer>
+
+    <script>
+      // Dữ liệu từ localStorage
+      let storedFiles = JSON.parse(localStorage.getItem("files")) || [];
+      let storedNotes = JSON.parse(localStorage.getItem("notes")) || {};
+      let currentEditIndex = null;
+
+      // Cập nhật danh sách tài liệu
+      function updateFileList() {
+        const fileList = document.getElementById("fileList");
+        fileList.innerHTML = ""; // Xóa danh sách cũ
+
+        storedFiles.forEach((file, index) => {
+          const fileItem = document.createElement("div");
+          fileItem.classList.add("file-item");
+
+          const fileName = file.name;
+          const fileNote = storedNotes[fileName] || "Chưa có ghi chú";
+
+          fileItem.innerHTML = `
+            <h3>${fileName}</h3>
+            <p><strong>Ghi chú:</strong> ${fileNote}</p>
+            <button onclick="editFile(${index})"><i class="fas fa-edit"></i> Chỉnh sửa</button>
+            <button onclick="deleteFile(${index})"><i class="fas fa-trash-alt"></i> Xóa</button>
+          `;
+
+          fileList.appendChild(fileItem);
+        });
+      }
+
+      // Lưu tài liệu và ghi chú
+      document.getElementById("saveBtn").addEventListener("click", function () {
+        const fileName = document.getElementById("fileName").value.trim();
+        const note = document.getElementById("noteInput").value.trim();
+        const fileInput = document.getElementById("fileInput");
+
+        if (!fileName || !fileInput.files[0]) {
+          alert("Vui lòng nhập tên tài liệu và chọn tệp tin.");
+          return;
+        }
+
+        const newFile = fileInput.files[0];
+
+        if (currentEditIndex !== null) {
+          // Chỉnh sửa tài liệu và ghi chú
+          storedFiles[currentEditIndex] = newFile;
+          storedNotes[newFile.name] = note;
+          localStorage.setItem("files", JSON.stringify(storedFiles));
+          localStorage.setItem("notes", JSON.stringify(storedNotes));
+          updateFileList();
+          currentEditIndex = null;
+        } else {
+          // Thêm tài liệu mới
+          storedFiles.push(newFile);
+          storedNotes[newFile.name] = note;
+          localStorage.setItem("files", JSON.stringify(storedFiles));
+          localStorage.setItem("notes", JSON.stringify(storedNotes));
+          updateFileList();
+        }
+
+        // Reset form
+        document.getElementById("fileName").value = "";
+        document.getElementById("noteInput").value = "";
+        fileInput.value = "";
+      });
+
+      // Chỉnh sửa tài liệu
+      function editFile(index) {
+        currentEditIndex = index;
+        const file = storedFiles[index];
+        const note = storedNotes[file.name];
+
+        document.getElementById("fileName").value = file.name;
+        document.getElementById("noteInput").value = note;
+
+        document.getElementById("saveBtn").textContent = "Cập nhật tài liệu";
+      }
+
+      // Xóa tài liệu
+      function deleteFile(index) {
+        const file = storedFiles[index];
+        if (confirm(`Bạn có chắc chắn muốn xóa tài liệu ${file.name}?`)) {
+          storedFiles.splice(index, 1);
+          delete storedNotes[file.name];
+
+          localStorage.setItem("files", JSON.stringify(storedFiles));
+          localStorage.setItem("notes", JSON.stringify(storedNotes));
+
+          updateFileList();
+        }
+      }
+
+      // Load danh sách tài liệu khi trang được tải
+      window.onload = updateFileList;
+    </script>
+  </body>
+</html>

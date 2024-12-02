@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thống Kê Quá Trình Giảng Dạy</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      header {
+        background-color: #007bff;
+        color: white;
+        text-align: center;
+        padding: 20px 0;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      .statistics-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .stat-box {
+        width: 23%;
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .stat-box:hover {
+        transform: scale(1.05);
+      }
+
+      .stat-box h2 {
+        color: #007bff;
+        margin: 0;
+      }
+
+      .stat-box p {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0;
+      }
+
+      .chart-container {
+        margin-top: 40px;
+        max-width: 100%;
+        height: 300px;
+      }
+
+      canvas {
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      /* Styling for dark mode */
+      body.dark-mode {
+        background-color: #333;
+        color: white;
+      }
+
+      header.dark-mode {
+        background-color: #1a1a1a;
+      }
+
+      .stat-box.dark-mode {
+        background-color: #444;
+        color: white;
+      }
+
+      .stat-box.dark-mode h2 {
+        color: #00b0ff;
+      }
+
+      .stat-box.dark-mode p {
+        color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Thống Kê Quá Trình Giảng Dạy</h1>
+    </header>
+
+    <div class="container">
+      <div class="statistics-container">
+        <!-- Statistics Box 1 -->
+        <div class="stat-box">
+          <h2>Số Học Viên</h2>
+          <p id="studentCount">200</p>
+        </div>
+
+        <!-- Statistics Box 2 -->
+        <div class="stat-box">
+          <h2>Số Khóa Học</h2>
+          <p id="courseCount">15</p>
+        </div>
+
+        <!-- Statistics Box 3 -->
+        <div class="stat-box">
+          <h2>Điểm Trung Bình</h2>
+          <p id="avgScore">7.8</p>
+        </div>
+
+        <!-- New Statistics Box: Thời Gian Đào Tạo -->
+        <div class="stat-box">
+          <h2>Thời Gian Đào Tạo</h2>
+          <p id="trainingTime">2500 giờ</p>
+        </div>
+
+        <!-- New Statistics Box: Thu Nhập -->
+        <div class="stat-box">
+          <h2>Thu Nhập</h2>
+          <p id="income">100,000,000 VND</p>
+        </div>
+
+        <!-- New Statistics Box: Lượng Tương Tác -->
+        <div class="stat-box">
+          <h2>Lượng Tương Tác</h2>
+          <p id="interaction">5000 lượt</p>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <canvas id="chart"></canvas>
+      </div>
+
+      <button
+        onclick="toggleDarkMode()"
+        style="
+          margin-top: 20px;
+          padding: 10px 20px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          cursor: pointer;
+        "
+      >
+        Chuyển Đổi Chế Độ Tối/Sáng
+      </button>
+    </div>
+
+    <script>
+      // Toggle Dark Mode
+      function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+        const statBoxes = document.querySelectorAll(".stat-box");
+        statBoxes.forEach((box) => box.classList.toggle("dark-mode"));
+      }
+
+      // Data for the chart
+      const studentCount = 200;
+      const courseCount = 15;
+      const avgScore = 7.8;
+      const trainingTime = 2500; // New data for Training Time
+      const income = 100000000; // New data for Income
+      const interaction = 5000; // New data for Interaction
+
+      // Create chart using Chart.js
+      const ctx = document.getElementById("chart").getContext("2d");
+      const chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: [
+            "Học Viên",
+            "Khóa Học",
+            "Điểm Trung Bình",
+            "Thời Gian Đào Tạo",
+            "Thu Nhập",
+            "Lượng Tương Tác",
+          ],
+          datasets: [
+            {
+              label: "Thống Kê Quá Trình Giảng Dạy",
+              data: [
+                studentCount,
+                courseCount,
+                avgScore,
+                trainingTime,
+                income / 1000000,
+                interaction,
+              ], // For income, I scale it to millions
+              backgroundColor: [
+                "rgba(0, 123, 255, 0.2)",
+                "rgba(40, 167, 69, 0.2)",
+                "rgba(255, 193, 7, 0.2)",
+                "rgba(255, 99, 132, 0.2)", // For Training Time
+                "rgba(153, 102, 255, 0.2)", // For Income
+                "rgba(255, 159, 64, 0.2)", // For Interaction
+              ],
+              borderColor: [
+                "rgba(0, 123, 255, 1)",
+                "rgba(40, 167, 69, 1)",
+                "rgba(255, 193, 7, 1)",
+                "rgba(255, 99, 132, 1)",
+                "rgba(153, 102, 255, 1)",
+                "rgba(255, 159, 64, 1)",
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+          plugins: {
+            legend: {
+              display: false,
+            },
+            tooltip: {
+              callbacks: {
+                label: function (tooltipItem) {
+                  return (
+                    tooltipItem.raw +
+                    (tooltipItem.datasetIndex === 2
+                      ? " Điểm"
+                      : tooltipItem.datasetIndex === 4
+                      ? " triệu VND"
+                      : "")
+                  );
+                },
+              },
+            },
+          },
+        },
+      });
+
+      // Set the chart height to make it smaller
+      document.getElementById("chart").style.height = "300px"; // Adjust this value as needed
+    </script>
+  </body>
+</html>

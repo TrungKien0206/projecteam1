@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hợp Đồng Điện Tử Đăng Ký Giảng Dạy</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #007bff;
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .section-title {
+        font-size: 1.5em;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #555;
+      }
+
+      input[type="text"],
+      input[type="date"],
+      input[type="email"],
+      input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1em;
+      }
+
+      .contract-terms {
+        margin-bottom: 20px;
+      }
+
+      .contract-terms ul {
+        list-style-type: decimal;
+        padding-left: 20px;
+      }
+
+      .signature-box {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #f1f1f1;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .signature-box input {
+        width: 100%;
+        padding: 10px;
+        font-size: 1.2em;
+      }
+
+      .btn {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1em;
+      }
+
+      .btn:hover {
+        background-color: #218838;
+      }
+
+      .btn-reset {
+        background-color: #ffc107;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1em;
+      }
+
+      .btn-reset:hover {
+        background-color: #e0a800;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 0.9em;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Hợp Đồng Điện Tử Đăng Ký Giảng Dạy</h1>
+    </header>
+
+    <div class="container">
+      <!-- Bảng điền thông tin -->
+      <section class="form-section">
+        <h2 class="section-title">Thông Tin Hợp Đồng</h2>
+
+        <div class="form-group">
+          <label for="partyA">Tên Bên A (Giảng Viên):</label>
+          <input type="text" id="partyA" placeholder="Nhập tên giảng viên" />
+        </div>
+
+        <div class="form-group">
+          <label for="partyB">Tên Bên B (Trung Tâm Đào Tạo):</label>
+          <input
+            type="text"
+            id="partyB"
+            placeholder="Nhập tên trung tâm đào tạo"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="contractDate">Ngày ký hợp đồng:</label>
+          <input type="date" id="contractDate" />
+        </div>
+
+        <div class="form-group">
+          <label for="contractFile">Tải tài liệu hợp đồng:</label>
+          <input type="file" id="contractFile" />
+        </div>
+
+        <div class="contract-terms">
+          <h3>Điều Khoản Hợp Đồng:</h3>
+          <ul>
+            <li>
+              <strong>Điều 1: Mục Đích Hợp Đồng</strong><br />
+              Bên A (Giảng viên) cam kết tham gia giảng dạy tại Bên B (Trung tâm
+              đào tạo) với các khóa học được thỏa thuận từ trước.
+            </li>
+            <li>
+              <strong>Điều 2: Thời Gian và Địa Điểm Giảng Dạy</strong><br />
+              Bên A đồng ý giảng dạy theo lịch học đã thỏa thuận với Bên B, bao
+              gồm ngày giờ, địa điểm, và khóa học cụ thể.
+            </li>
+            <li>
+              <strong>Điều 3: Quyền Lợi và Nghĩa Vụ Của Giảng Viên</strong
+              ><br />
+              Bên A sẽ nhận được mức thù lao theo các khóa học đã giảng dạy. Bên
+              A cũng có nghĩa vụ chuẩn bị bài giảng đầy đủ và có trách nhiệm đối
+              với sự tiến bộ của học viên.
+            </li>
+            <li>
+              <strong
+                >Điều 4: Quyền Lợi và Nghĩa Vụ Của Trung Tâm Đào Tạo</strong
+              ><br />
+              Bên B cam kết cung cấp cơ sở vật chất, thiết bị học tập và hỗ trợ
+              trong suốt quá trình giảng dạy của Bên A.
+            </li>
+            <li>
+              <strong>Điều 5: Thanh Toán</strong><br />
+              Mức thù lao sẽ được thanh toán theo từng kỳ, sau mỗi khóa học kết
+              thúc. Các phương thức thanh toán sẽ được thống nhất giữa hai bên.
+            </li>
+            <li>
+              <strong>Điều 6: Chấm Dứt Hợp Đồng</strong><br />
+              Hợp đồng có thể được chấm dứt nếu có sự thỏa thuận giữa hai bên,
+              hoặc khi có lý do chính đáng từ một bên liên quan.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Khu vực chữ ký -->
+      <section class="signature-box">
+        <h2 class="section-title">Chữ Ký Điện Tử</h2>
+
+        <div class="form-group">
+          <label for="signatureA">Chữ ký Giảng Viên (Bên A):</label>
+          <input
+            type="text"
+            id="signatureA"
+            placeholder="Nhập chữ ký giảng viên"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="signatureB">Chữ ký Trung Tâm (Bên B):</label>
+          <input
+            type="text"
+            id="signatureB"
+            placeholder="Nhập chữ ký trung tâm"
+          />
+        </div>
+
+        <button class="btn" onclick="submitContract()">
+          Ký và Lưu Hợp Đồng
+        </button>
+        <button class="btn-reset" onclick="resetForm()">Làm Mới</button>
+      </section>
+    </div>
+
+    <div class="footer">
+      <p>© 2024 Hợp Đồng Điện Tử. Tất cả quyền lợi được bảo vệ.</p>
+    </div>
+
+    <script>
+      // Chức năng xử lý hợp đồng điện tử
+      function submitContract() {
+        // Lấy thông tin các trường
+        const partyA = document.getElementById("partyA").value;
+        const partyB = document.getElementById("partyB").value;
+        const contractDate = document.getElementById("contractDate").value;
+        const signatureA = document.getElementById("signatureA").value;
+        const signatureB = document.getElementById("signatureB").value;
+
+        if (!partyA || !partyB || !contractDate || !signatureA || !signatureB) {
+          alert("Vui lòng điền đầy đủ thông tin hợp đồng và chữ ký.");
+          return;
+        }
+
+        // Xử lý lưu hợp đồng hoặc gửi đến email, tạo PDF...
+        alert(
+          "Hợp đồng đã được ký thành công! Bạn có thể tải xuống hợp đồng đã ký."
+        );
+
+        // Sau khi ký, có thể thực hiện lưu hợp đồng dưới dạng PDF hoặc gửi email.
+        // Chức năng này có thể được mở rộng với thư viện như jsPDF để tạo file PDF.
+      }
+
+      // Hàm làm mới form
+      function resetForm() {
+        document.getElementById("partyA").value = "";
+        document.getElementById("partyB").value = "";
+        document.getElementById("contractDate").value = "";
+        document.getElementById("contractFile").value = "";
+        document.getElementById("signatureA").value = "";
+        document.getElementById("signatureB").value = "";
+      }
+    </script>
+  </body>
+</html>
